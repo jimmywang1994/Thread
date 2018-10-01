@@ -1,23 +1,16 @@
 package com.ww.SynchronizedDemo;
 
-public class UnsafeTest02 {
-    public static void main(String[] args) {
-        Account account = new Account(100, "礼金");
-        Drawing you = new Drawing(account, 80, "你");
-        Drawing wife = new Drawing(account, 90, "她");
-        you.start();
-        wife.start();
-    }
+public class SynTest02 {
+
 }
 
-
 //模拟取款
-class  Drawing extends Thread {
+class SafeDrawing extends Thread {
     Account account;//取款账户
     int drawingMoney;//取的钱数
     int packactTotal;//取的总数
 
-    public Drawing(Account account, int drawingMoney, String name) {
+    public SafeDrawing(Account account, int drawingMoney, String name) {
         super(name);
         this.account = account;
         this.drawingMoney = drawingMoney;
@@ -25,6 +18,10 @@ class  Drawing extends Thread {
 
     @Override
     public void run() {
+        test(); 
+    }
+
+    public synchronized void test() {
         if (account.money - drawingMoney < 0) {
             return;
         }
