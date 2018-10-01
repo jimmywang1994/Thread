@@ -23,6 +23,7 @@ class SafeWeb12306 implements Runnable{
         }
     }
 
+    //锁的是资源
     public synchronized void test() {
         if (ticketNums <= 0) {
             flag = false;

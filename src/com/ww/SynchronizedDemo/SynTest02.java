@@ -1,7 +1,13 @@
 package com.ww.SynchronizedDemo;
 
 public class SynTest02 {
-
+    public static void main(String[] args) {
+        Account account = new Account(100, "礼金");
+        SafeDrawing you = new SafeDrawing(account, 80, "你");
+        SafeDrawing she = new SafeDrawing(account, 90, "她");
+        you.start();
+        she.start();
+    }
 }
 
 //模拟取款
@@ -18,9 +24,10 @@ class SafeDrawing extends Thread {
 
     @Override
     public void run() {
-        test(); 
+        test();
     }
 
+    //目标不对，锁定失败，不应该锁this，应该锁account
     public synchronized void test() {
         if (account.money - drawingMoney < 0) {
             return;
